@@ -40,7 +40,48 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+    },
+
+    printarTablero: function(){
+        var padre = $("#tablero");
+        var listaH = [' ','A','B','C','D','E','G','H','I'];
+        var listaV = [' ','1','2','3','4','5','6','7','8'];
+        var contador = 0;
+
+        var tabla = $("<table class='tabla'></table>");
+        var tbody = $("<tbdoy></tbdoy>");
+
+        for ( var filas = 0; filas < listaH.length; filas++ ){
+            var tr = $("<tr>"+filas+"</tr>");
+
+            for ( var columnas = 0; columnas < listaV.length; columnas++ ){
+                
+                if( filas == 0){
+                    var td = $("<td class='recuadro'>"+ listaH[columnas] +"</td>");
+                }
+                else if( columnas == 0 ){
+                    var td = $("<td class='recuadro'>"+ listaV[filas] +"</td>");
+                }
+                else{
+                    if(contador % 2 == 0){
+                        var td = $("<td class='blanco' id='"+ filas+","+columnas +"' onclick='celdaClicada(id)'></td>");    
+                    }else{
+                        var td = $("<td class='negro' id='"+ filas+","+columnas +"' onclick='celdaClicada(id)'></td>");
+                    }
+                    
+                }
+                tr.append(td);
+                contador++;
+            }
+            tbody.append(tr);
+        }
+
+        tabla.append(tbody);
+        padre.append(tabla);
+
     }
+
 };
 
 app.initialize();
+app.printarTablero();
