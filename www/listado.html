@@ -37,44 +37,23 @@
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <title>AjedrezApi</title>
     </head>
-    <body id="login">
+    <body>
         <div class="app">
             <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
-
-            <div class="container">
-                <div class="row vertical-offset-100">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4" style="background-color: white; border-radius: 5px; padding: 15px 15px 15px 15px; border: 1px solid orange;">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Inicia sesion!!</h3>
-                            </div>
-                            <div class="panel-body">
-                                <form accept-charset="UTF-8" role="form" method="get">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <input class="form-control" id="ValorUser" placeholder="User" name="user" type="text">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" id="ValorPassword" placeholder="Password" name="password" type="password">
-                                    </div>
-                                    <input id="enviarFormulario" class="btn btn-lg btn-success btn-block" type="submit" value="Login">
-                                </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            
+            <div id="listadoPartidas" class="row">
+                <div id="Jugadores">Listado Jugadores</div>
+            </div>
+            <div id="listadoPartidas" class="row">
+                <div id="listado"></div>
             </div>
         </div>
-
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/scripts.js"></script>
     </body>
 </html>

@@ -47,7 +47,6 @@ var app = {
         var listaH = [' ','A','B','C','D','E','G','H','I'];
         var listaV = [' ','1','2','3','4','5','6','7','8'];
         var contador = 0;
-
         var tabla = $("<table class='tabla'></table>");
         var tbody = $("<tbdoy></tbdoy>");
 
@@ -64,9 +63,9 @@ var app = {
                 }
                 else{
                     if(contador % 2 == 0){
-                        var td = $("<td class='blanco' id='"+ filas+","+columnas +"' onclick='celdaClicada(id)'></td>");    
+                        var td = $("<td class='blanco' id='"+ listaV[filas]+","+listaH[columnas] +"'></td>");    
                     }else{
-                        var td = $("<td class='negro' id='"+ filas+","+columnas +"' onclick='celdaClicada(id)'></td>");
+                        var td = $("<td class='negro' id='"+ listaV[filas]+","+listaH[columnas] +"'></td>");
                     }
                     
                 }
@@ -80,8 +79,12 @@ var app = {
         padre.append(tabla);
 
     }
-
 };
 
 app.initialize();
 app.printarTablero();
+
+
+$( "td" ).click(function() {
+  alert( this.id );
+});

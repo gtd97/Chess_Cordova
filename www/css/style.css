@@ -1,3 +1,8 @@
+#login{
+	background-image: url("../img/fondo.jpg");
+	background-repeat: no-repeat;
+}
+
 #containerAjedrez{
   	align-items: center;
   	display: flex;
@@ -14,7 +19,7 @@
 	margin: auto;
 	height: 45%;
 	width: 50%;
-	padding-left: 70px;
+	padding-left: 40px;
 }
 
 #tablero tr {
@@ -22,8 +27,8 @@
 }
 
 #tablero td {
-	width: 30px;
- 	height: 25px;
+	width: 55px;
+ 	height: 35px;
 }
 
 .recuadro {

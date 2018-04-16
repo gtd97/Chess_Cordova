@@ -33,9 +33,11 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <title>Hello World</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <title>AjedrezApi</title>
     </head>
-    <body>
+    <body id="login">
         <div class="app">
             <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
@@ -43,12 +45,36 @@
                 <p class="event received">Device is Ready</p>
             </div>
 
-            <div id="containerAjedrez">
-                <div id="tablero"></div>
+            <div class="container">
+                <div class="row vertical-offset-100">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4" style="background-color: white; border-radius: 5px; padding: 15px 15px 15px 15px; border: 1px solid orange;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Inicia sesion!!</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form accept-charset="UTF-8" role="form" method="get">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="User" name="user" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Password" name="password" type="password">
+                                    </div>
+                                    <input id="enviarFormulario" class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                                </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/scripts.js"></script>
     </body>
 </html>
