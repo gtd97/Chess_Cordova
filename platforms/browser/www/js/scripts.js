@@ -1,29 +1,77 @@
+$('#ValorUser').val("genis");
+$('#ValorPassword').val("P@ssw0rd");
+
+var token = 0;
+
 // Login
-$( "#enviarFormulario" ).click(function() {
-	alert("ha clicado en enviarFormulario");
+$( "#enviarFormulario" ).click(function() {	
+	var user = $('#ValorUser').val();
+	var pass = $('#ValorPassword').val();
+	usuario = user;
 
 	$.ajax({
-	    url : 'ajedrezapi.herokuapp.com/api/login',
-	    data : { 
-	    	usuario : $("input[name='user']"),
-	    	password: $("input[name='password']") 
-	    },
+		type : "GET",
+	    url : "https://ajedrezapi.herokuapp.com/api/login/"+user+"/"+pass,	   
+	    
+	   	success: function(respuesta){
+	   		respuesta = JSON.parse(respuesta);
+	   		
+        	if( respuesta.status == "Ok" ){
+        		token = respuesta.token;
+        		window.location.replace("listado.html");
+        	}
+        },
 
-	    type : 'GET',
-	    dataType : 'json',
+        error: function(respuesta){
+        	alert( "erroor ----> " + JSON.stringify(respuesta) );
+        } 
+    });
 
-	    success : function(json) {
-	       alert( JSON.strinigfy(json) );
-	    },
-	 
-	    error : function(xhr, status) {
-	        alert('Disculpe, existió un problema');
-	    },
-	 
-	    complete : function(xhr, status) {
-	        alert('Petición realizada');
-	    }
-	});
 });
 
 
+$("#botonBuscarPartida").click(function() {	
+	alert(token);
+
+	$.ajax({
+		type : "GET",
+	    url : "https://ajedrezapi.herokuapp.com/api/en_espera/"+token,	   
+	    
+	   	success: function(respuesta){
+	   		respuesta = JSON.parse(respuesta);
+	   		alert(JSON.stringify(respuesta));
+        	
+        },
+
+        error: function(respuesta){
+        	alert( "erroor ----> " + JSON.stringify(respuesta) );
+        } 
+    });
+});
+
+/*
+<h1>Usuarios Conectado</h1>
+<hr>
+<table id="tablaJugadores" class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Jugador</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td><button id="invitar" class="btn-danger botonBorder">invitar</button></td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td><button id="invitar" class="btn-danger botonBorder">invitar</button></td>
+    </tr>
+  
+  </tbody>
+</table>
+*/

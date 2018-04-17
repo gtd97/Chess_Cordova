@@ -44,3 +44,7 @@
 	border: 1px solid black;
 	background-color: white;
 }
+
+.botonBorder{
+	border-radius: 5px;
+}

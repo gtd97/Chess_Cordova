@@ -28,7 +28,8 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:; script-src * 'unsafe-eval' 'unsafe-inline';
+        connect-src * 'unsafe-eval' 'unsafe-inline';"">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -39,10 +40,22 @@
     </head>
     <body id="login">
         <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <h1 style="color: white; padding-top: 20px;">Apache Cordova</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div id="deviceready" class="blink">
+                            <p class="event listening">Connecting to Device</p>
+                            <p class="event received">Device is Ready</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="container">
@@ -54,15 +67,15 @@
                                 <h3 class="panel-title">Inicia sesion!!</h3>
                             </div>
                             <div class="panel-body">
-                                <form accept-charset="UTF-8" role="form" method="get">
+                                <form accept-charset="UTF-8" role="form">
                                 <fieldset>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="User" name="user" type="text">
+                                        <input class="form-control" id="ValorUser" placeholder="User" name="user" type="text">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="Password" name="password" type="password">
+                                        <input class="form-control" id="ValorPassword" placeholder="Password" name="password" type="password">
                                     </div>
-                                    <input id="enviarFormulario" class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                                    <input id="enviarFormulario" type="button" class="btn btn-lg btn-success btn-block" value="Login">
                                 </fieldset>
                                 </form>
                             </div>
