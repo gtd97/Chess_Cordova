@@ -58,9 +58,26 @@
                 </div>
             </div>
 
-            <div class="container" id="divListadoUsuarios">
+            <div class="container" id="divListadoUsuarios" >
                 <div class="row">
-                    <div id="contenidoParaTabla" class="col-sm-10 form-group-lg" style="background-color: white;">
+                    <div class="col-md-2"></div>
+                    <div id="contenidoParaTabla" class="col-md-8">
+                        <table id="tabla" class="table table-dark">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Nombre</th>
+                              <th scope="col">Duelo</th>
+                            </tr>
+                          </thead>
+                          <tbody id="tbody">
+                          </tbody>
+                        </table> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2">
                         <button class="btn btn-danger" id="botonBuscarPartida">JUGAR</button>
                     </div>
                 </div>
