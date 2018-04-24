@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                        <h1 style="color: white; padding-top: 20px;">Apache Cordova</h1>
+                        <h1 style="padding-top: 20px;">Apache Cordova</h1>
                     </div>
                 </div>
                 <div class="row">
@@ -58,10 +58,10 @@
                 </div>
             </div>
 
-            <div class="container">
+            <div id="index" class="container">
                 <div class="row vertical-offset-100">
                     <div class="col-md-4"></div>
-                    <div class="col-md-4" style="background-color: white; border-radius: 5px; padding: 15px 15px 15px 15px; border: 1px solid orange;">
+                    <div class="col-md-4" style="border-radius: 5px; padding: 15px 15px 15px 15px; border: 1px solid orange;">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Inicia sesion!!</h3>
@@ -83,7 +83,49 @@
                     </div>
                 </div>
             </div>
+
+            <div id="listado" class="app">
+                <div class="container" id="divListadoUsuarios" >
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div id="contenidoParaTabla" class="col-md-8">
+                            <table id="tabla" class="table table-dark">
+                              <thead>
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Nombre</th>
+                                  <th scope="col">Duelo</th>
+                                </tr>
+                              </thead>
+                              <tbody id="tbody">
+                              </tbody>
+                            </table> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5"></div>
+                        <div class="col-md-2">
+                            <button class="btn btn-danger" id="botonBuscarPartida">JUGAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tablero">
+                <div id="containerAjedrez" class="row">
+                    <div id="tablero"></div>
+                </div>
+            </div> 
         </div>
+
+        <script>
+           function test(){
+            $('#'+localStorage.getItem('fichas1')+'').append('<img src="img/corona.png"></img>');
+            alert("holi");
+            alert("test -----> " + JSON.stringify(localStorage.getItem('fichas1')) );
+           }
+            
+        </script>
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
