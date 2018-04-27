@@ -63,9 +63,9 @@ var app = {
                 }
                 else{
                     if(contador % 2 == 0){
-                        var td = $("<td class='blanco' id='"+ listaV[filas]+","+listaH[columnas] +"'></td>");    
+                        var td = $("<td class='blanco' id='"+ listaV[filas]+listaH[columnas] +"'></td>");    
                     }else{
-                        var td = $("<td class='negro' id='"+ listaV[filas]+","+listaH[columnas] +"'></td>");
+                        var td = $("<td class='negro' id='"+ listaV[filas]+listaH[columnas] +"'></td>");
                     }
                     
                 }

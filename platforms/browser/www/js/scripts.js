@@ -1,7 +1,8 @@
+/*
 $('#tabla').hide();
 $('#listado').hide();
 $('#tablero').hide();
-
+*/
 
 $('#ValorUser').val("genis");
 $('#ValorPassword').val("P@ssw0rd");
@@ -9,18 +10,21 @@ $('#ValorPassword').val("P@ssw0rd");
 
 // Llamada para saber si te han invitado
 function invitaciones(){
+  // url: esta url devuelve los datos de la partida, siempre y cuando estes en alguna de ellas
   $.ajax({
     type : "GET",
     url : "https://ajedrezapi.herokuapp.com/api/id_partida/"+localStorage.getItem('mi_id')+"/"+localStorage.getItem('token'),     
     
     success: function(respuesta){
       respuesta = JSON.parse(respuesta);
-      localStorage.setItem('partida_actual', respuesta.response[0]);
+      //alert("respuesta --> " + respuesta.response[0].id );
+      localStorage.setItem('partida_actual', respuesta.response[0].id);
+      /*
       $('#index').hide();
       $('#listado').hide();
       $('#tablero').show();
-      generarTablero( respuesta.response[0] );
-      //window.location.replace("partida.html");
+      */
+      window.location.replace("partida.html");
     },
     error: function(respuesta){
       alert( "erroor ----> " + JSON.stringify(respuesta) );
@@ -44,7 +48,7 @@ $.ajax({
 });
 
 
-// Login
+// Login: Comprovacion de si el usuario y contraseña es correcto, y obtencion del token en el caso de que sea correcto todo.
 $( "#enviarFormulario" ).click(function() {	
 	var user = $('#ValorUser').val();
 	var pass = $('#ValorPassword').val();
@@ -58,23 +62,37 @@ $( "#enviarFormulario" ).click(function() {
    		
       if( respuesta.status == "Ok" ){
       	localStorage.setItem('token', respuesta.token );
-      	$('#index').hide();
-        $('#listado').show();
-        //window.location.replace("listado.html");
+      	//$('#index').hide();
+        //$('#listado').show();
+        window.location.replace("listado.html");
       }
     },
     error: function(respuesta){
-     	alert( "erroor ----> " + JSON.stringify(respuesta) );
+     	alert( "erroor login ----> " + JSON.stringify(respuesta) );
     } 
   });
 });
 
 
-// Generar Listado Usuarios
+// Generar Listado Usuarios: funcion para realizar la lista de todos los jugadores que estan en busqueda de partida
 $("#botonBuscarPartida").click(function() {
+
+  $.ajax({
+    type : "GET",
+    url : "https://ajedrezapi.herokuapp.com/api/cambiar_estado_busqueda/"+localStorage.getItem('token'),     
+    
+    success: function(respuesta){
+      respuesta = JSON.parse(respuesta);   
+    },
+    error: function(respuesta){
+      alert( "erroor cambiar_estado_busqueda ----> " + JSON.stringify(respuesta) );
+    }    
+  });
+  
   setInterval(invitaciones, 100);	
-  $('#tabla').show();$('#tabla').show();
+  //$('#tabla').show();$('#tabla').show();
   $('#botonBuscarPartida').hide();
+  //$('#contenedortabla').show();
 
 	$.ajax({
 		type : "GET",
@@ -107,13 +125,13 @@ $("#botonBuscarPartida").click(function() {
       }  
     },
     error: function(respuesta){
-     	alert( "erroor ----> " + JSON.stringify(respuesta) );
+     	alert( "erroor en_espera ----> " + JSON.stringify(respuesta) );
     }    
   });
 });
 
 
-// funcion para retar a un usuario
+// funcion para retar a un usuario, al clicar a un usuario de la lista creara automaticamente partida con él y sera invitado
 function retar(e){
   $.ajax({
     type: "GET",
@@ -125,37 +143,39 @@ function retar(e){
       if(respuesta.estado == 'Ok'){
         //alert(JSON.stringify(respuesta));
         localStorage.setItem('arrayFichas', respuesta.mensaje );
-        $('#index').hide();
-        $('#listado').hide();
-        $('#tablero').show();
+        alert( localStorage.getItem('arrayFichas') );
         //window.location.replace("partida.html");
       }
     },
     error: function(respuesta){
-      alert( "erroor ----> " + JSON.stringify(respuesta) );
+      alert( "erroor crear_partida ----> " + JSON.stringify(respuesta) );
     } 
-
   });
 }
 
-// funcion que genera el tablero inicial
+
+
+
+
+
+
+
+
+/*
+// funcion que obtener las fichas
 function generarTablero(e){
-  //  /generarTablero/{id_partida}/{jugador1}/{jugador2}/{token}
-  //alert( "https://ajedrezapi.herokuapp.com/api/generarTablero/"+e.id+"/"+localStorage.getItem('token') );
+    $.ajax({
+      type: "GET",
+      url: "https://ajedrezapi.herokuapp.com/api/generarTablero/"+e.id+"/"+localStorage.getItem('token'),
 
-  $.ajax({
-    type: "GET",
-    url: "https://ajedrezapi.herokuapp.com/api/generarTablero/"+e.id+"/"+localStorage.getItem('token'),
-
-    success: function(respuesta){
-      respuesta = JSON.parse(respuesta);
-      localStorage.setItem('fichas1', respuesta.fichas[0].fila + "," + respuesta.fichas[0].columna );
-      localStorage.setItem('fichas2', respuesta.fichas[1].fila + "," + respuesta.fichas[1].columna );
-      test();
-    },
-    error: function(respuesta){
-      alert( "erroor generarTablero ----> " + JSON.stringify(respuesta) );
-    } 
-  });
-  
+      success: function(respuesta){
+        respuesta = JSON.parse(respuesta);
+        alert( "FICHAS --> " + JSON.stringify(respuesta) );
+        
+      },
+      error: function(respuesta){
+        alert( "error generarTablero ----> " + JSON.stringify(respuesta) );
+      } 
+    });
 }
+*/
