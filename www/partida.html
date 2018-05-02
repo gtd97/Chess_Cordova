@@ -56,7 +56,13 @@
         <script type="text/javascript" src="js/scripts.js"></script>
 
         <script>
-
+            var contador = 0;
+            var origen;
+            var destino;
+            var destinoCol;
+            var destinoFil;
+            var origenCol;
+            var origenFil;
 
             setInterval(function(){ 
                 $.ajax({
@@ -66,20 +72,33 @@
                   success: function(respuesta){
                     respuesta = JSON.parse(respuesta);
                     
-                    if ( respuesta.status == 'ok' ){            
+                    if ( respuesta.status == 'ok' ){       
+                        for ( var num=0; num < respuesta.fichas.length; num++ ){  
+                            //var clase = $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).attr('class');
+                          
+                            if( respuesta.fichas[num].color == "negra"){
+                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).empty();
+                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).prepend('<img style="height: 30px; width: 30px;" src="img/corona_blanca.png"/>');
+                            }else{
+                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).empty();
+                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).prepend('<img style="height: 30px; width: 30px;" src="img/corona_negra.png"/>');
+                            }
+                        }
+
+                        /*
                         for ( var num=0; num < respuesta.fichas.length; num++ ){
                             var clase = $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).attr('class');
                           
                             if( respuesta.fichas[num].color == "negra"){
-                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).replaceWith('<td class="'+clase+'" id="'+ respuesta.fichas[num].fila + respuesta.fichas[num].columna +'"><img style="height: 30px; width: 30px;" src="img/corona_blanca.png"></img></td>').click( function(e) {
-                                  clicado(e.target);
-                                });
+
+                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).replaceWith($('<td class="'+clase+'" id="'+ respuesta.fichas[num].fila + respuesta.fichas[num].columna +'"><img style="height: 30px; width: 30px;" src="img/corona_blanca.png"></img></td>'));
                             }
                             else{
-                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).replaceWith($('<td class="'+clase+'" id="'+ respuesta.fichas[num].fila + respuesta.fichas[num].columna +'"></td>').click(clicado));                               
-                                //<img style="height: 30px; width: 30px;" src="img/corona_negra.png"></img>
+                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).replaceWith($('<td class="'+clase+'" id="'+ respuesta.fichas[num].fila + respuesta.fichas[num].columna +'"><img style="height: 30px; width: 30px;" src="img/corona_negra.png"></img></td>'));                               
+                                //click(clicadoOrigen)
                             }
                         }
+                        */
                     }
                   },
                   error: function(respuesta){
@@ -89,9 +108,38 @@
             }, 3000);
 
 
-            function clicado(){
-                alert( this.id );
-            }
+            $( "td" ).click(function() {
+                alert( "es impar?" + (contador%2 != 0) + " contador: "+ contador );
+
+                if( (contador%2 != 0) == true ){
+                    origen = this.id;
+                    origenCol = origen.substring(1, 2);
+                    origenFil = origen.substring(0, 1);
+                    contador++;
+                }
+                else{
+                    destino = this.id;
+                    destinoCol = destino.substring(1, 2);
+                    destinoFil = destino.substring(0, 1);
+                    contador++;
+
+                    alert("https://ajedrezapi.herokuapp.com/api/mou/"+localStorage.getItem('partida_actual')+"/"+origenFil+"/"+origenCol+"/"+destinoFil+"/"+destinoCol+"/"+localStorage.getItem('token'));
+
+                    //ajax
+                    $.ajax({
+                        type: "GET",
+                        url: "https://ajedrezapi.herokuapp.com/api/mou/"+localStorage.getItem('partida_actual')+"/"+origenFil+"/"+origenCol+"/"+destinoFil+"/"+destinoCol+"/"+localStorage.getItem('token'),
+
+                        success: function(respuesta){
+                            respuesta = JSON.parse(respuesta);
+                            alert( "respuesta: " + JSON.stringify(respuesta) );
+                        },
+                        error: function(respuesta){
+                            alert( "error generarTablero ----> " + JSON.stringify(respuesta) );
+                        } 
+                    });
+                }
+            });
         </script>
     </body>
 </html>

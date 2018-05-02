@@ -84,7 +84,8 @@ var app = {
 app.initialize();
 app.printarTablero();
 
-
+/*
 $( "td" ).click(function() {
   alert( this.id );
 });
+*/
