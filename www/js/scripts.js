@@ -1,9 +1,3 @@
-/*
-$('#tabla').hide();
-$('#listado').hide();
-$('#tablero').hide();
-*/
-
 $('#ValorUser').val("genis");
 $('#ValorPassword').val("P@ssw0rd");
 
@@ -17,17 +11,11 @@ function invitaciones(){
     
     success: function(respuesta){
       respuesta = JSON.parse(respuesta);
-      //alert("respuesta --> " + respuesta.response[0].id );
       localStorage.setItem('partida_actual', respuesta.response[0].id);
-      /*
-      $('#index').hide();
-      $('#listado').hide();
-      $('#tablero').show();
-      */
       window.location.replace("partida.html");
     },
     error: function(respuesta){
-      alert( "erroor ----> " + JSON.stringify(respuesta) );
+      console.log( "erroor ----> " + JSON.stringify(respuesta) );
     } 
   });
 }
@@ -43,7 +31,7 @@ $.ajax({
     localStorage.setItem('mi_id', respuesta[0].id);
   },
   error: function(respuesta){
-    alert( "erroor ----> " + JSON.stringify(respuesta) );
+    console.log( "erroor ----> " + JSON.stringify(respuesta) );
   } 
 });
 
@@ -62,13 +50,11 @@ $( "#enviarFormulario" ).click(function() {
    		
       if( respuesta.status == "Ok" ){
       	localStorage.setItem('token', respuesta.token );
-      	//$('#index').hide();
-        //$('#listado').show();
         window.location.replace("listado.html");
       }
     },
     error: function(respuesta){
-     	alert( "erroor login ----> " + JSON.stringify(respuesta) );
+     	console.log( "erroor login ----> " + JSON.stringify(respuesta) );
     } 
   });
 });
@@ -85,7 +71,7 @@ $("#botonBuscarPartida").click(function() {
       respuesta = JSON.parse(respuesta);   
     },
     error: function(respuesta){
-      alert( "erroor cambiar_estado_busqueda ----> " + JSON.stringify(respuesta) );
+      console.log( "erroor cambiar_estado_busqueda ----> " + JSON.stringify(respuesta) );
     }    
   });
   
@@ -125,7 +111,7 @@ $("#botonBuscarPartida").click(function() {
       }  
     },
     error: function(respuesta){
-     	alert( "erroor en_espera ----> " + JSON.stringify(respuesta) );
+     	console.log( "erroor en_espera ----> " + JSON.stringify(respuesta) );
     }    
   });
 });
@@ -143,12 +129,12 @@ function retar(e){
       if(respuesta.estado == 'Ok'){
         //alert(JSON.stringify(respuesta));
         localStorage.setItem('arrayFichas', respuesta.mensaje );
-        alert( localStorage.getItem('arrayFichas') );
+        console.log( localStorage.getItem('arrayFichas') );
         //window.location.replace("partida.html");
       }
     },
     error: function(respuesta){
-      alert( "erroor crear_partida ----> " + JSON.stringify(respuesta) );
+      console.log( "erroor crear_partida ----> " + JSON.stringify(respuesta) );
     } 
   });
 }

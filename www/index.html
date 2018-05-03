@@ -122,19 +122,18 @@
             
             // funcion que obtener las fichas
             function obtenerPosicionFichas(){
-              alert( "holi" + localStorage.setItem('partida_actual', respuesta.response[0]) );
-
+              //alert( "holi" + localStorage.setItem('partida_actual', respuesta.response[0]) );
                 $.ajax({
                   type: "GET",
                   url: "https://ajedrezapi.herokuapp.com/api/generarTablero/"+localStorage.setItem('partida_actual', respuesta.response[0])+"/"+localStorage.getItem('token'),
 
                   success: function(respuesta){
                     respuesta = JSON.parse(respuesta);
-                    alert( "FICHAS --> " + JSON.stringify(respuesta) );
+                    //alert( "FICHAS --> " + JSON.stringify(respuesta) );
                     
                   },
                   error: function(respuesta){
-                    alert( "error generarTablero ----> " + JSON.stringify(respuesta) );
+                    //alert( "error generarTablero ----> " + JSON.stringify(respuesta) );
                   } 
                 });
               }

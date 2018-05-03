@@ -56,7 +56,7 @@
         <script type="text/javascript" src="js/scripts.js"></script>
 
         <script>
-            var contador = 0;
+            var contador = 1;
             var origen;
             var destino;
             var destinoCol;
@@ -72,33 +72,20 @@
                   success: function(respuesta){
                     respuesta = JSON.parse(respuesta);
                     
-                    if ( respuesta.status == 'ok' ){       
+                    if ( respuesta.status == 'ok' ){
+                        $('.blanco').empty();
+                        $('.negro').empty();
                         for ( var num=0; num < respuesta.fichas.length; num++ ){  
                             //var clase = $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).attr('class');
-                          
+                            
                             if( respuesta.fichas[num].color == "negra"){
                                 $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).empty();
-                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).prepend('<img style="height: 30px; width: 30px;" src="img/corona_blanca.png"/>');
+                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).prepend('<img style="height: 30px; width: 30px;" src="img/torre_blanca.png"/>');
                             }else{
                                 $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).empty();
-                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).prepend('<img style="height: 30px; width: 30px;" src="img/corona_negra.png"/>');
+                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).prepend('<img style="height: 30px; width: 30px;" src="img/torre_negra.png"/>');
                             }
                         }
-
-                        /*
-                        for ( var num=0; num < respuesta.fichas.length; num++ ){
-                            var clase = $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).attr('class');
-                          
-                            if( respuesta.fichas[num].color == "negra"){
-
-                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).replaceWith($('<td class="'+clase+'" id="'+ respuesta.fichas[num].fila + respuesta.fichas[num].columna +'"><img style="height: 30px; width: 30px;" src="img/corona_blanca.png"></img></td>'));
-                            }
-                            else{
-                                $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).replaceWith($('<td class="'+clase+'" id="'+ respuesta.fichas[num].fila + respuesta.fichas[num].columna +'"><img style="height: 30px; width: 30px;" src="img/corona_negra.png"></img></td>'));                               
-                                //click(clicadoOrigen)
-                            }
-                        }
-                        */
                     }
                   },
                   error: function(respuesta){
@@ -109,8 +96,7 @@
 
 
             $( "td" ).click(function() {
-                alert( "es impar?" + (contador%2 != 0) + " contador: "+ contador );
-
+                
                 if( (contador%2 != 0) == true ){
                     origen = this.id;
                     origenCol = origen.substring(1, 2);
@@ -123,7 +109,7 @@
                     destinoFil = destino.substring(0, 1);
                     contador++;
 
-                    alert("https://ajedrezapi.herokuapp.com/api/mou/"+localStorage.getItem('partida_actual')+"/"+origenFil+"/"+origenCol+"/"+destinoFil+"/"+destinoCol+"/"+localStorage.getItem('token'));
+                    //alert("https://ajedrezapi.herokuapp.com/api/mou/"+localStorage.getItem('partida_actual')+"/"+origenFil+"/"+origenCol+"/"+destinoFil+"/"+destinoCol+"/"+localStorage.getItem('token'));
 
                     //ajax
                     $.ajax({
@@ -133,9 +119,12 @@
                         success: function(respuesta){
                             respuesta = JSON.parse(respuesta);
                             alert( "respuesta: " + JSON.stringify(respuesta) );
+                            if( respuesta.status == 'ok' ){
+                                alert(respuesta.msg);
+                            }
                         },
                         error: function(respuesta){
-                            alert( "error generarTablero ----> " + JSON.stringify(respuesta) );
+                            //alert( "error generarTablero ----> " + JSON.stringify(respuesta) );
                         } 
                     });
                 }
