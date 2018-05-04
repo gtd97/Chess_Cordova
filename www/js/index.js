@@ -42,7 +42,9 @@ var app = {
         console.log('Received Event: ' + id);
     },
 
+    // creacion de nueva funcion, la qual se encarga de pintar el tablero
     printarTablero: function(){
+        // Variables
         var padre = $("#tablero");
         var listaH = [' ','A','B','C','D','E','G','H','I'];
         var listaV = [' ','1','2','3','4','5','6','7','8'];
@@ -50,24 +52,28 @@ var app = {
         var tabla = $("<table class='tabla'></table>");
         var tbody = $("<tbdoy></tbdoy>");
 
+        // For que se encarga de hacer todas las filas 
         for ( var filas = 0; filas < listaH.length; filas++ ){
             var tr = $("<tr>"+filas+"</tr>");
 
+            // for que calcula cada columna 
             for ( var columnas = 0; columnas < listaV.length; columnas++ ){
-                
+                    
+                // en el caso de que sea la primera fila, se insertaran los numeros del array
                 if( filas == 0){
                     var td = $("<td class='recuadro'>"+ listaH[columnas] +"</td>");
                 }
+                // en el caso de que sea la primera columna, se insertaran los letras del array
                 else if( columnas == 0 ){
                     var td = $("<td class='recuadro'>"+ listaV[filas] +"</td>");
                 }
                 else{
+                    // para controlar si sera negra o blanca la celda
                     if(contador % 2 == 0){
                         var td = $("<td class='blanco' id='"+ listaV[filas]+listaH[columnas] +"'></td>");    
                     }else{
                         var td = $("<td class='negro' id='"+ listaV[filas]+listaH[columnas] +"'></td>");
                     }
-                    
                 }
                 tr.append(td);
                 contador++;
@@ -82,10 +88,5 @@ var app = {
 };
 
 app.initialize();
+// llamamos al printar tablero.
 app.printarTablero();
-
-/*
-$( "td" ).click(function() {
-  alert( this.id );
-});
-*/

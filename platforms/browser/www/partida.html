@@ -56,6 +56,7 @@
         <script type="text/javascript" src="js/scripts.js"></script>
 
         <script>
+            // VARIABLES
             var contador = 1;
             var origen;
             var destino;
@@ -64,6 +65,7 @@
             var origenCol;
             var origenFil;
 
+            // Llamada AJAX, que se encarga de llamar al generarTablero, esta funcion se encarga de recibir la posicion de las fichas, borra las anteriores y coloca las nuevas fichas.
             setInterval(function(){ 
                 $.ajax({
                   type: "GET",
@@ -72,59 +74,78 @@
                   success: function(respuesta){
                     respuesta = JSON.parse(respuesta);
                     
+                    // Si todo ha ido bien, y el servidor devuelve el stado ok, significa que hay fichas.
                     if ( respuesta.status == 'ok' ){
+                        // Vacia todas las imagenes para que no aparezcan mas.
                         $('.blanco').empty();
                         $('.negro').empty();
+                        
+                        // este for se encarga de obtener el numero de fichas, que le devuelve el servidor:
                         for ( var num=0; num < respuesta.fichas.length; num++ ){  
                             //var clase = $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).attr('class');
                             
+                            // si la ficha recibida es de color negra entrara en el primer if, para asignarle el estilo de negro. Sino entrara en el segundo asignandole un estilo de blanca.
                             if( respuesta.fichas[num].color == "negra"){
+                                // Eliminacion del contenido antes de insertar la imagen, asi corregimos el problema, de que no aparezcan mas de una ficha en la misma celda
                                 $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).empty();
+                                // Una vez eliminada, insertamos la imagen de la ficha en el td que tenga como id (fila + columna)
                                 $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).prepend('<img style="height: 30px; width: 30px;" src="img/torre_blanca.png"/>');
                             }else{
+                                // Eliminacion del contenido antes de insertar la imagen, asi corregimos el problema, de que no aparezcan mas de una ficha en la misma celda
                                 $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).empty();
+                                // Una vez eliminada, insertamos la imagen de la ficha en el td que tenga como id (fila + columna)
                                 $("#"+respuesta.fichas[num].fila + respuesta.fichas[num].columna).prepend('<img style="height: 30px; width: 30px;" src="img/torre_negra.png"/>');
                             }
                         }
                     }
                   },
                   error: function(respuesta){
-                    alert( "error generarTablero ----> " + JSON.stringify(respuesta) );
+                    console.log( "error generarTablero ----> " + JSON.stringify(respuesta) );
                   } 
                 });
             }, 3000);
 
 
-            $( "td" ).click(function() {
-                
+            // Addlistener a los td, donde al clicar se entrara.
+            $( "td" ).click(function() {    
+                // primero observamos si es un clic par, en el caso de impar entrara en el else.
                 if( (contador%2 != 0) == true ){
+                    // obtencion del id
                     origen = this.id;
+                    // separacion del id, para obtener fila y columna
                     origenCol = origen.substring(1, 2);
                     origenFil = origen.substring(0, 1);
+                    // augmentamos contador, para controlar si es el segundo clic o no.
                     contador++;
                 }
                 else{
+                    // obtencion del id
                     destino = this.id;
+                    // separacion del id, para obtener fila y columna
                     destinoCol = destino.substring(1, 2);
                     destinoFil = destino.substring(0, 1);
+                    // augmentamos contador, para controlar si es el segundo clic o no.
                     contador++;
 
-                    //alert("https://ajedrezapi.herokuapp.com/api/mou/"+localStorage.getItem('partida_actual')+"/"+origenFil+"/"+origenCol+"/"+destinoFil+"/"+destinoCol+"/"+localStorage.getItem('token'));
-
-                    //ajax
+                    
+                    // Esta llamada, se ejecuta al segundo clic en td, ya que se entiende que seria la celda destino a la que se quiere mover.
                     $.ajax({
                         type: "GET",
                         url: "https://ajedrezapi.herokuapp.com/api/mou/"+localStorage.getItem('partida_actual')+"/"+origenFil+"/"+origenCol+"/"+destinoFil+"/"+destinoCol+"/"+localStorage.getItem('token'),
 
                         success: function(respuesta){
                             respuesta = JSON.parse(respuesta);
-                            alert( "respuesta: " + JSON.stringify(respuesta) );
+                            alert( JSON.stringify(respuesta) );
+                            
+                            /*
+                            // en el caso de que devuelva un ok, significa que se ha acabado y ha ganado el jugador.
                             if( respuesta.status == 'ok' ){
-                                alert(respuesta.msg);
+                                //alert( respuesta.msg );
                             }
+                            */
                         },
                         error: function(respuesta){
-                            //alert( "error generarTablero ----> " + JSON.stringify(respuesta) );
+                            console.log( "error mou ----> " + JSON.stringify(respuesta) );
                         } 
                     });
                 }

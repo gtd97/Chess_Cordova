@@ -100,7 +100,7 @@
                     }
                   },
                   error: function(respuesta){
-                    alert( "error generarTablero ----> " + JSON.stringify(respuesta) );
+                    console.log( "error generarTablero ----> " + JSON.stringify(respuesta) );
                   } 
                 });
             }, 3000);
@@ -127,8 +127,7 @@
                     // augmentamos contador, para controlar si es el segundo clic o no.
                     contador++;
 
-                    //alert("https://ajedrezapi.herokuapp.com/api/mou/"+localStorage.getItem('partida_actual')+"/"+origenFil+"/"+origenCol+"/"+destinoFil+"/"+destinoCol+"/"+localStorage.getItem('token'));
-
+                    
                     // Esta llamada, se ejecuta al segundo clic en td, ya que se entiende que seria la celda destino a la que se quiere mover.
                     $.ajax({
                         type: "GET",
@@ -136,15 +135,17 @@
 
                         success: function(respuesta){
                             respuesta = JSON.parse(respuesta);
-                            alert( "respuesta: " + JSON.stringify(respuesta) );
+                            alert( JSON.stringify(respuesta) );
                             
+                            /*
                             // en el caso de que devuelva un ok, significa que se ha acabado y ha ganado el jugador.
                             if( respuesta.status == 'ok' ){
-                                alert(respuesta.msg);
+                                //alert( respuesta.msg );
                             }
+                            */
                         },
                         error: function(respuesta){
-                            //alert( "error generarTablero ----> " + JSON.stringify(respuesta) );
+                            console.log( "error mou ----> " + JSON.stringify(respuesta) );
                         } 
                     });
                 }
